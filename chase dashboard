@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chase Online Banking - Barry Dale Smith</title>
+    <style>
+        :root {
+            --chase-blue: #0060f0;
+            --chase-dark-blue: #0b2343;
+            --bg-gray: #f4f7f9;
+            --border-color: #cfd8dc;
+        }
+
+        body {
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-gray);
+            margin: 0;
+            color: #414042;
+        }
+
+        /* Chase Top Header */
+        header {
+            background-color: var(--chase-dark-blue);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            justify-content: space-between;
+        }
+
+        .chase-logo {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .sign-out {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            border: 1px solid white;
+            padding: 5px 15px;
+            border-radius: 3px;
+        }
+
+        /* Sub-navigation */
+        .sub-nav {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 10%;
+            font-size: 14px;
+            color: var(--chase-blue);
+            font-weight: 600;
+        }
+
+        /* Main Dashboard */
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .welcome-text {
+            font-size: 28px;
+            color: var(--chase-dark-blue);
+            margin-bottom: 25px;
+        }
+
+        .account-tile {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tile-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .account-title {
+            color: var(--chase-blue);
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .account-number {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .balance-area {
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .balance-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 400;
+            color: #000;
+        }
+
+        /* Action Links */
+        .action-bar {
+            background: #fafafa;
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 20px;
+        }
+
+        .action-link {
+            color: var(--chase-blue);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .action-link:hover { text-decoration: underline; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="chase-logo">CHASE <span>&reg;</span></div>
+        <a href="#" class="sign-out">Sign out</a>
+    </header>
+
+    <div class="sub-nav">
+        Accounts &nbsp; | &nbsp; Payments &nbsp; | &nbsp; Credit Cards &nbsp; | &nbsp; Investment
+    </div>
+
+    <div class="container">
+        <h1 class="welcome-text">Hello, Barry Dale Smith</h1>
+
+        <div class="account-tile">
+            <div class="tile-header">
+                <div>
+                    <a href="#" class="account-title">CHASE PREMIER PLUS CHECKING</a>
+                    <div class="account-number">...5678</div>
+                </div>
+                <div style="text-align: right;">
+                    <img src="https://img.icons8.com/ios-glyphs/30/0060f0/menu-2.png" alt="menu" style="cursor:pointer;">
+                </div>
+            </div>
+
+            <div class="balance-area">
+                <div class="balance-label">Present balance</div>
+                <div class="balance-amount">$100,000.00</div>
+            </div>
+
+            <div class="action-bar">
+                <a href="#" class="action-link">Pay & transfer</a>
+                <a href="#" class="action-link">See statements</a>
+                <a href="#" class="action-link">Paperless</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
