@@ -2,174 +2,258 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Finance Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chase Mobile | Accounts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0d1117;
-            --card-bg: #161b22;
-            --text-main: #f0f6fc;
-            --text-alt: #8b949e;
-            --neon-green: #3fb950;
-            --border: #30363d;
+            --chase-blue: #0060f0;
+            --chase-dark: #0b2343;
+            --bg-gray: #f4f7f9;
+            --text-gray: #414042;
+            --border: #d1dce5;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-            background-color: var(--bg);
-            color: var(--text-main);
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-gray);
             margin: 0;
-            padding: 15px;
-            box-sizing: border-box;
+            color: var(--text-gray);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Balance Section */
-        .balance-card {
-            background-color: var(--neon-green);
-            color: #000;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(63, 185, 80, 0.4);
+        /* Top App Bar */
+        .app-header {
+            background-color: var(--chase-dark);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .card-label { font-size: 14px; font-weight: 500; opacity: 0.8; }
-        .balance-amount { font-size: 38px; font-weight: 700; margin-top: 5px; }
-
-        /* Actions Section */
-        .actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
+        .chase-logo {
+            color: white;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
         }
 
-        .action-btn {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-size: 14px;
         }
 
-        /* Transactions Section */
-        .transaction-card {
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-title { font-size: 18px; font-weight: 600; margin: 0; }
-        .view-all { color: var(--neon-green); font-size: 13px; text-decoration: none; font-weight: 500; }
-
-        .transaction-list { display: flex; flex-direction: column; gap: 15px; }
-
-        .txn-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 15px;
+        /* Welcome Section */
+        .welcome-section {
+            padding: 24px 20px;
+            background: white;
             border-bottom: 1px solid var(--border);
         }
 
-        .txn-details { display: flex; align-items: center; gap: 12px; }
-        
-        /* Specific Transaction Highlights */
-        .highlight-green {
-            background-color: rgba(63, 185, 80, 0.15);
-            color: var(--neon-green);
-            padding: 8px;
-            border-radius: 50%;
-            font-size: 18px;
+        .user-name {
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0;
+            color: var(--chase-dark);
         }
 
-        .txn-title { font-weight: 600; font-size: 14px; }
-        .txn-meta { color: var(--text-alt); font-size: 12px; margin-top: 2px; }
+        /* Account Card */
+        .account-card {
+            background: white;
+            margin: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
 
-        .txn-amount { text-align: right; }
-        .amount { font-weight: 700; font-size: 16px; }
-        .amount-received { color: var(--neon-green); }
-        .txn-type { font-size: 11px; color: var(--text-alt); text-transform: uppercase; margin-top: 2px; }
+        .card-top {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
 
+        .account-type {
+            color: var(--chase-blue);
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .account-num {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .balance-row {
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .balance-label {
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .balance-val {
+            font-size: 34px;
+            font-weight: 400;
+            color: #000;
+        }
+
+        /* Action Buttons */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-top: 1px solid var(--border);
+        }
+
+        .action-item {
+            padding: 15px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            color: var(--chase-blue);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* Transaction History */
+        .history-section {
+            background: white;
+            margin-top: 10px;
+            padding-bottom: 50px;
+        }
+
+        .section-header {
+            padding: 20px;
+            font-weight: 700;
+            font-size: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .txn-row {
+            padding: 18px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .txn-desc {
+            font-weight: 600;
+            font-size: 14px;
+            color: #222;
+        }
+
+        .txn-date {
+            font-size: 12px;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        .amount-green {
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .amount-black {
+            color: #000;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* Bottom Nav (Visual Only) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-icon { font-size: 10px; color: #777; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="balance-card">
-        <div class="card-label">Available Balance</div>
-        <div class="balance-amount">$750,000.00</div>
+    <div class="app-header">
+        <div class="chase-logo">CHASE &reg;</div>
+        <div class="profile-icon">WS</div>
     </div>
 
-    <div class="actions">
-        <div class="action-btn">Deposit</div>
-        <div class="action-btn">Withdraw</div>
+    <div class="welcome-section">
+        <h1 class="user-name">Hello, Williams Scott</h1>
     </div>
 
-    <div class="transaction-card">
-        <div class="section-header">
-            <h2 class="section-title">Transactions</h2>
-            <a href="#" class="view-all">View All</a>
+    <div class="account-card">
+        <div class="card-top">
+            <div class="account-type">CHASE PREMIER PLUS CHECKING</div>
+            <div class="account-num">...7842</div>
         </div>
 
-        <div class="transaction-list">
-            
-            <div class="txn-item">
-                <div class="txn-details">
-                    <div class="highlight-green">↓</div>
-                    <div>
-                        <div class="txn-title">Secure Incoming Transfer</div>
-                        <div class="txn-meta">29 April 2021</div>
-                    </div>
-                </div>
-                <div class="txn-amount">
-                    <div class="amount amount-received">+$750,000.00</div>
-                    <div class="txn-type">Received</div>
-                </div>
-            </div>
-
-            <div class="txn-item">
-                <div class="txn-details">
-                    <div style="color: var(--text-alt); font-size: 18px;">•</div>
-                    <div>
-                        <div class="txn-title">Monthly Subscription</div>
-                        <div class="txn-meta">15 March 2026, 10:30 AM</div>
-                    </div>
-                </div>
-                <div class="txn-amount">
-                    <div class="amount">-$14.99</div>
-                    <div class="txn-type">Spent</div>
-                </div>
-            </div>
-
-            <div class="txn-item" style="border-bottom: none;">
-                <div class="txn-details">
-                    <div style="color: var(--text-alt); font-size: 18px;">•</div>
-                    <div>
-                        <div class="txn-title">Gas Station</div>
-                        <div class="txn-meta">14 March 2026, 4:15 PM</div>
-                    </div>
-                </div>
-                <div class="txn-amount">
-                    <div class="amount">-$85.00</div>
-                    <div class="txn-type">Spent</div>
-                </div>
-            </div>
-
+        <div class="balance-row">
+            <div class="balance-label">Present balance</div>
+            <div class="balance-val">$750,000.00</div>
         </div>
+
+        <div class="actions-grid">
+            <div class="action-item">Pay & Transfer</div>
+            <div class="action-item" style="border-right: none;">Deposit</div>
+        </div>
+    </div>
+
+    <div class="history-section">
+        <div class="section-header">Recent Activity</div>
+
+        <div class="txn-row">
+            <div>
+                <div class="txn-desc">Online Transfer - Deposit</div>
+                <div class="txn-date">29 April 2021</div>
+            </div>
+            <div class="amount-green">+$750,000.00</div>
+        </div>
+
+        <div class="txn-row">
+            <div>
+                <div class="txn-desc">Zelle Transfer To Emily</div>
+                <div class="txn-date">Mar 16, 2026</div>
+            </div>
+            <div class="amount-black">-$150.00</div>
+        </div>
+
+        <div class="txn-row">
+            <div>
+                <div class="txn-desc">Starbucks Coffee #492</div>
+                <div class="txn-date">Mar 15, 2026</div>
+            </div>
+            <div class="amount-black">-$12.45</div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-icon">🏠<br>Accounts</div>
+        <div class="nav-icon">💸<br>Pay & Transfer</div>
+        <div class="nav-icon">📊<br>Invest</div>
+        <div class="nav-icon">⚙️<br>Settings</div>
     </div>
 
 </body>
