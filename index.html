@@ -3,147 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chase Mobile | Login</title>
+    <title>Chase Online | Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --chase-blue: #0060f0;
             --chase-dark: #082244;
-            --bg-gray: #f2f4f7;
-            --border: #e1e4e8;
             --error-red: #d32f2f;
         }
 
-        body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-gray); margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Open Sans', sans-serif; margin: 0; background-color: #f2f4f7; }
 
-        /* --- LOGIN PAGE STYLES --- */
-        #login-screen {
+        /* --- LOGIN SCREEN (STARTS VISIBLE) --- */
+        #login-page {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, var(--chase-dark) 0%, #0a3a7a 100%);
-            height: 100vh;
+            z-index: 9999;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 30px;
+            padding: 80px 30px;
             box-sizing: border-box;
             color: white;
-            position: fixed;
-            width: 100%;
-            z-index: 2000;
         }
 
-        .login-logo { font-size: 32px; font-weight: 800; letter-spacing: 2px; margin-bottom: 50px; }
-        .input-group { width: 100%; max-width: 400px; margin-bottom: 20px; }
+        .chase-logo-lg { font-size: 34px; font-weight: 800; letter-spacing: 2px; margin-bottom: 40px; }
         
+        .login-box { width: 100%; max-width: 380px; }
+
         input {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
+            margin-bottom: 12px;
             border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.4);
             background: rgba(255,255,255,0.1);
             color: white;
             font-size: 16px;
-            margin-bottom: 12px;
             box-sizing: border-box;
         }
 
-        .login-btn {
+        input::placeholder { color: rgba(255,255,255,0.7); }
+
+        .btn-signin {
             width: 100%;
-            padding: 15px;
-            background: var(--chase-blue);
+            padding: 16px;
+            background-color: var(--chase-blue);
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-top: 15px;
         }
 
-        /* --- LOADING SPINNER --- */
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        #error-msg {
+            color: #ffcfcf;
+            font-size: 13px;
+            margin-top: 15px;
             display: none;
-            margin-left: 10px;
+            text-align: center;
+            background: rgba(255,0,0,0.2);
+            padding: 10px;
+            border-radius: 4px;
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* --- DASHBOARD (STARTS HIDDEN) --- */
+        #dashboard-page {
+            display: none; /* This ensures it is invisible at start */
+        }
 
-        /* --- DASHBOARD STYLES --- */
-        #dashboard { display: none; }
-        header { background: var(--chase-dark); height: 56px; display: flex; align-items: center; padding: 0 16px; justify-content: space-between; color: white; position: sticky; top: 0; }
-        .freeze-banner { background: #fff4f4; border-bottom: 1px solid #f8d7da; padding: 12px 16px; display: flex; gap: 10px; align-items: center; }
-        .alert-text { color: #842029; font-size: 13px; }
-        .greeting { background: white; padding: 24px 16px; font-size: 24px; color: var(--chase-dark); border-bottom: 1px solid var(--border); }
-        .card { background: white; margin: 16px; border-radius: 6px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .card-head { padding: 15px 20px; border-bottom: 1px solid #f0f0f0; }
-        .acc-type { color: var(--chase-blue); font-weight: 700; font-size: 14px; }
-        .balance-section { padding: 25px 20px; }
-        .bal-amt { font-size: 38px; font-weight: 600; color: #000; letter-spacing: -0.5px; }
-        .status-tag { display: inline-block; background: #ffebee; color: var(--error-red); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-top: 8px; }
-        .quick-actions { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); background: #fafafa; }
-        .action { padding: 16px; text-align: center; color: #94a3b8; font-weight: 700; font-size: 14px; border-right: 1px solid var(--border); cursor: not-allowed; }
-        .txn { background: white; padding: 18px 16px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; }
+        header { background: var(--chase-dark); height: 56px; display: flex; align-items: center; padding: 0 16px; color: white; justify-content: space-between; }
+        .freeze-alert { background: #fff4f4; border-bottom: 1px solid #f8d7da; padding: 12px 16px; color: #842029; font-size: 13px; display: flex; gap: 10px; }
+        .greeting { background: white; padding: 25px 16px; font-size: 24px; color: var(--chase-dark); border-bottom: 1px solid #ddd; }
+        
+        .card { background: white; margin: 16px; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .card-inner { padding: 20px; }
+        .acc-name { color: var(--chase-blue); font-weight: 700; font-size: 14px; }
+        .bal-amt { font-size: 38px; font-weight: 600; color: #000; margin: 10px 0; }
+        .status { display: inline-block; background: #ffebee; color: var(--error-red); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+        
+        .actions { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #eee; background: #fafafa; }
+        .act-btn { padding: 16px; text-align: center; color: #94a3b8; font-weight: 700; font-size: 14px; border-right: 1px solid #eee; }
+
+        .txn { background: white; padding: 18px 16px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
         .pos { color: #2a7e19; font-weight: 700; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; height: 65px; background: white; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; font-size: 10px; }
+
+        .nav { position: fixed; bottom: 0; width: 100%; height: 65px; background: white; border-top: 1px solid #ddd; display: flex; justify-content: space-around; align-items: center; font-size: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="login-screen">
-        <div class="login-logo">CHASE &reg;</div>
-        <div class="input-group">
-            <input type="text" id="user" placeholder="Username" spellcheck="false">
-            <input type="password" id="pass" placeholder="Password">
-            <button class="login-btn" id="loginBtn" onclick="handleLogin()">
-                <span id="btnText">Sign in</span>
-                <div class="spinner" id="loader"></div>
-            </button>
+    <div id="login-page">
+        <div class="chase-logo-lg">CHASE &reg;</div>
+        
+        <div class="login-box">
+            <input type="text" id="username" placeholder="Username" autocomplete="off">
+            <input type="password" id="password" placeholder="Password">
+            <button class="btn-signin" onclick="tryLogin()">Sign in</button>
+            <div id="error-msg">Invalid Username or Password. Please try again.</div>
         </div>
-        <div style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Forgot username/password? ></div>
-        <div style="margin-top: auto; font-size: 12px; opacity: 0.7;">Member FDIC | Equal Housing Lender</div>
+
+        <div style="margin-top: 30px; font-size: 14px; opacity: 0.8;">Forgot username/password? ></div>
     </div>
 
-    <div id="dashboard">
+    <div id="dashboard-page">
         <header>
-            <div class="logo">CHASE &reg;</div>
-            <div style="font-weight:700; background:rgba(255,255,255,0.2); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px;">WS</div>
+            <div style="font-size: 19px; font-weight: 800; letter-spacing: 1px;">CHASE &reg;</div>
+            <div style="background:rgba(255,255,255,0.2); width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">WS</div>
         </header>
 
-        <div class="freeze-banner">
-            <div style="color:var(--error-red); font-size: 20px;">⚠️</div>
-            <div class="alert-text">
-                <b>Account Restricted</b><br>
-                Security Hold: Transfers and withdrawals are disabled.
-            </div>
+        <div class="freeze-alert">
+            <div style="font-size: 20px;">⚠️</div>
+            <div><b>Account Restricted</b><br>Security Hold: Transfers and withdrawals are disabled.</div>
         </div>
 
         <div class="greeting">Hello, Williams Scott</div>
 
         <div class="card">
-            <div class="card-head">
-                <div class="acc-type">CHASE PREMIER PLUS CHECKING</div>
+            <div class="card-inner">
+                <div class="acc-name">CHASE PREMIER PLUS CHECKING</div>
                 <div style="font-size:12px; color:#666">...7842</div>
-            </div>
-            <div class="balance-section">
-                <div style="font-size:13px; color:#555">Present balance</div>
+                <div style="font-size:13px; color:#555; margin-top:20px;">Present balance</div>
                 <div class="bal-amt">$750,000.00</div>
-                <div class="status-tag">Status: Frozen</div>
+                <div class="status">Status: Frozen</div>
             </div>
-            <div class="quick-actions">
-                <div class="action">Pay & transfer</div>
-                <div class="action" style="border-right: none;">Deposit checks</div>
+            <div class="actions">
+                <div class="act-btn">Pay & transfer</div>
+                <div class="act-btn" style="border:none;">Deposit checks</div>
             </div>
         </div>
 
-        <div style="padding: 15px 16px; font-weight: 700; font-size: 16px;">Recent Activity</div>
+        <div style="padding: 15px 16px; font-weight: 700;">Recent Activity</div>
         <div class="txn">
             <div>
                 <div style="font-weight:600; font-size:14px;">Online Transfer - Deposit</div>
@@ -152,7 +145,7 @@
             <div class="pos">+$750,000.00</div>
         </div>
 
-        <div class="bottom-nav">
+        <div class="nav">
             <div style="text-align:center">🏠<br>Accounts</div>
             <div style="text-align:center">💸<br>Pay & transfer</div>
             <div style="text-align:center">📈<br>Invest</div>
@@ -161,27 +154,25 @@
     </div>
 
     <script>
-        function handleLogin() {
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-            const btnText = document.getElementById('btnText');
-            const loader = document.getElementById('loader');
+        function tryLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const error = document.getElementById('error-msg');
 
-            // Start Animation
-            btnText.innerText = 'Signing in...';
-            loader.style.display = 'block';
-
-            setTimeout(() => {
-                if(u === 'mydogchips' && p === 'weak-Dane-dog') {
-                    document.getElementById('login-screen').style.display = 'none';
-                    document.getElementById('dashboard').style.display = 'block';
-                } else {
-                    alert('Invalid Username or Password.');
-                    btnText.innerText = 'Sign in';
-                    loader.style.display = 'none';
-                }
-            }, 2000); // 2-second delay for realism
+            // EXACT MATCHES FOR YOUR DATA:
+            // Username: mydogchips
+            // Password: weak-Dane-dog
+            
+            if (u === 'mydogchips' && p === 'weak-Dane-dog') {
+                // HIDE LOGIN, SHOW DASHBOARD
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('dashboard-page').style.display = 'block';
+            } else {
+                // SHOW ERROR MESSAGE
+                error.style.display = 'block';
+            }
         }
     </script>
+
 </body>
 </html>
